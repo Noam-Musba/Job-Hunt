@@ -5,9 +5,9 @@ function Bed() {
     <div
       id="bed"
       style={{
-        border: "1px solid black",
-        height: "30vh",
-        width: "10vh",
+        border: "2px solid black",
+        height: "60vh",
+        width: "40vh",
         margin: "5px",
         /* display: "flex",
         textAlign: "center",
@@ -18,20 +18,19 @@ function Bed() {
         id="pillow"
         style={{
           border: "1px solid black",
-          height: "4vh",
-          width: "7vh",
+          position: "relative",
+          height: "15%",
+          width: "90%",
           margin: "10px",
-          fontSize: "13px",
         }}
-      >
-        bed
-      </div>
+      ></div>
       <div
         id="blanket"
         style={{
           border: "1px solid black",
-          height: "20vh",
-          width: "8vh",
+          position: "relative",
+          height: "75%",
+          width: "93%",
           margin: "7px",
           //position: "relative",
         }}
