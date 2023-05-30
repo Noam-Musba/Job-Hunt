@@ -1,17 +1,18 @@
 import React from "react";
+import Bed from "./Bed";
 
 const roomStyle = {};
 
 function Room() {
   return (
-    <div
+    <div id="gamebox"
       style={{
         display: "flex",
         width: "100%",
         justifyContent: "center",
       }}
     >
-      <div
+      <div id="walls"
         style={{
           display: "flex",
           justifyContent: "center",
@@ -24,14 +25,16 @@ function Room() {
           top: "10%",
         }}
       >
-        <div
+        <div id="floor"
           style={{
             backgroundColor: "white",
             height: "90%",
             width: "90%",
             border: "1px solid black",
           }}
-        ></div>
+        >
+          <Bed />
+        </div>
       </div>
     </div>
   );
