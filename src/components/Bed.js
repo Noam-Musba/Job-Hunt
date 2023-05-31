@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CharacterContext } from "./Room";
 
 function Bed() {
+  const charContext = useContext(CharacterContext);
   return (
     <div
       id="bed"
@@ -9,10 +11,12 @@ function Bed() {
         height: "60vh",
         width: "40vh",
         margin: "5px",
+        cursor: "pointer",
         /* display: "flex",
         textAlign: "center",
         justifyContent: "center", */
       }}
+      onClick={() => charContext.charDispatch("sleep")}
     >
       <div
         id="pillow"

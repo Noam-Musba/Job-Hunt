@@ -10,7 +10,7 @@ function Computer() {
         width: "25vw",
         margin: "5px",
         position: "relative",
-        left: "15vw",
+        left: "27%",
       }}
     >
       <div
