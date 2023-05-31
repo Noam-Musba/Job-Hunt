@@ -1,6 +1,7 @@
 import React from "react";
 import Bed from "./Bed";
 import Computer from "./Computer";
+import Dumbells from "./Dumbells";
 
 const roomStyle = {};
 
@@ -37,15 +38,18 @@ function Room() {
             width: "90%",
             border: "1px solid black",
             boxShadow: "0 0 10px rgba(237, 233, 157, 1)", //yellow
+            //overflow: "auto"
           }}
         >
           <div style={{
             display: "flex",
-            overflow: "hidden"
+            //overflow: "hidden"
           }}>
             <Bed />
             <Computer />
+            
           </div>
+          <Dumbells />
         </div>
       </div>
     </div>
