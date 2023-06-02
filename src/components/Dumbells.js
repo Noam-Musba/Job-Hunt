@@ -12,9 +12,8 @@ function Dumbells() {
         margin: "5px",
         position: "relative",
         top: "3vh",
-        cursor: "pointer",
       }}
-      onClick={() => charContext.charDispatch("exercise")}
+      
     >
       <img
         src={process.env.PUBLIC_URL + "/images/dumbellsRack.png"}
@@ -24,10 +23,12 @@ function Dumbells() {
           maxWidth: "100%",
           position: "absolute",
           right: "0",
+          cursor: "pointer",
         }}
+        onClick={() => charContext.charDispatch("exercise")}
       />
     </div>
   );
 }
 
-export default Dumbells;
+export default React.memo(Dumbells);

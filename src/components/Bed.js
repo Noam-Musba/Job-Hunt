@@ -43,4 +43,4 @@ function Bed() {
   );
 }
 
-export default Bed;
+export default React.memo(Bed);
