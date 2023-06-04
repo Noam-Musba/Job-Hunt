@@ -8,13 +8,17 @@ const MyModal = () => {
   const charContext = useContext(CharacterContext);
 
   const handleActivityChosen = () => {
+    console.log("handleActivityChosen")
     switch (selectedAct) {
       case 0:
         charContext.charDispatch("study");
+        return;
       case 1:
         charContext.charDispatch("send cv");
+        return;
       case 2:
         charContext.charDispatch("game");
+        return;
     }
   };
 
@@ -47,6 +51,7 @@ const MyModal = () => {
               {activities.map((activity, index) => (
                 <li
                   key={index}
+                  style={{cursor: "pointer"}}
                   className={
                     selectedAct === index
                       ? "list-group-item active"

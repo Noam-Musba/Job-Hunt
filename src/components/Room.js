@@ -13,67 +13,125 @@ const initCharacter = {
   luck: 1,
 };
 
+function studyHandler(state) {
+  if (state.energy < 30) {
+    return "energy";
+  } else if (state.motivation < 10) {
+    return "motivation";
+  } else {
+    return {
+      time: (state.time + 1) % 3,
+      motivation: Math.max(state.motivation - 10, 0),
+      professionalism: Math.min(
+        state.professionalism + (state.motivation > 50 ? 10 : 5),
+        100
+      ),
+      energy: Math.max(state.energy - 30, 0),
+      luck: Math.max(state.luck - (state.time === 2 ? 5 : 0), 0),
+    };
+  }
+}
+
+function sendCVHandler(state) {
+  if (state.energy < 25) {
+    return "energy";
+  } else if (
+    (state.professionalism > 50 && state.motivation < 20) ||
+    (state.professionalism <= 50 && state.motivation < 30)
+  ) {
+    return "motivation";
+  } else {
+    return {
+      time: (state.time + 1) % 3,
+      motivation: Math.max(
+        state.motivation - (state.professionalism > 50 ? 10 : 20),
+        0
+      ),
+      professionalism: Math.max(state.professionalism - 2, 0),
+      energy: Math.max(state.energy - 25, 0),
+      luck: Math.max(state.luck + (state.time === 2 ? 0 : 5), 0),
+    };
+  }
+}
+
+function gameHandler(state) {
+  return {
+    time: (state.time + 1) % 3,
+    motivation: Math.min(state.motivation + 10, 100),
+    professionalism: Math.max(
+      state.professionalism - (state.professionalism > 50 ? 5 : 10),
+      0
+    ),
+    energy: Math.min(state.energy + 10, 100),
+    luck: Math.max(state.luck - (state.time === 2 ? 5 : 0), 0),
+  };
+}
+
+function exerciseHandler(state) {
+  if (state.energy < 15) {
+    return "energy";
+  } else {
+    return {
+      time: (state.time + 1) % 3,
+      motivation: Math.min(state.motivation + 20, 100),
+      professionalism: Math.max(
+        state.professionalism - (state.professionalism > 50 ? 5 : 15),
+        0
+      ),
+      energy: Math.max(state.energy - 15, 0),
+      luck: Math.max(state.luck - (state.time === 2 ? 5 : 0), 0),
+    };
+  }
+}
+
+function sleepHandler(state) {
+  return {
+    time: (state.time + 1) % 3,
+    motivation: Math.min(state.motivation + (state.time === 2 ? 15 : 5), 100),
+    professionalism: Math.max(
+      state.professionalism - (state.time === 2 ? 5 : 0),
+      0
+    ),
+    energy: Math.min(state.energy + (state.time === 2 ? 50 : 20), 100),
+    luck: Math.max(state.luck - (state.time === 2 ? 5 : 0), 0),
+  };
+}
+
+/**when day changes from 3 to 1, should reduce luck, and not only only sleep */
+
 const reducer = (state, action) => {
+  console.log("reducer");
+  let ret = "";
   switch (action) {
     case "study":
-      return {
-        time: (state.time + 1) % 3,
-        motivation: Math.max(state.motivation - 10, 0),
-        professionalism: Math.min(
-          state.professionalism + (state.motivation > 50 ? 10 : 5),
-          100
-        ),
-        energy: Math.max(state.energy - 30, 0),
-        luck: state.luck,
-      };
+      console.log("study");
+      ret = studyHandler(state);
+      if (ret === "energy" || ret === "motivation") {
+        alert(`Your ${ret} is too low!`);
+        return state;
+      } else return ret;
     case "send cv":
-      return {
-        time: (state.time + 1) % 3,
-        motivation: Math.max(
-          state.motivation - (state.professionalism > 50 ? 10 : 20),
-          0
-        ),
-        professionalism: state.professionalism,
-        energy: Math.max(state.energy - 20, 0),
-        luck: state.luck + 10,
-      };
+      console.log("cv");
+      ret = sendCVHandler(state);
+      if (ret === "energy" || ret === "motivation") {
+        alert(`Your ${ret} is too low!`);
+        return state;
+      } else return ret;
     case "game":
-      return {
-        time: (state.time + 1) % 3,
-        motivation: Math.min(state.motivation + 10, 100),
-        professionalism: Math.max(
-          state.professionalism - (state.professionalism > 50 ? 5 : 10),
-          0
-        ),
-        energy: Math.min(state.energy + 10, 100),
-        luck: state.luck,
-      };
+      console.log("game");
+      return gameHandler(state);
     case "exercise":
-      return {
-        time: (state.time + 1) % 3,
-        motivation: Math.min(state.motivation + 20, 100),
-        professionalism: Math.max(
-          state.professionalism - (state.professionalism > 50 ? 5 : 10),
-          0
-        ),
-        energy: Math.max(state.energy - 10, 0),
-        luck: state.luck,
-      };
+      console.log("exc");
+      ret = exerciseHandler(state);
+      if (ret === "energy") {
+        alert(`Your ${ret} is too low!`);
+        return state;
+      } else return ret;
     case "sleep":
-      return {
-        time: (state.time + 1) % 3,
-        motivation: Math.min(
-          state.motivation + (state.time === 2 ? 15 : 5),
-          100
-        ),
-        professionalism: Math.max(
-          state.professionalism - (state.time === 2 ? 5 : 0),
-          0
-        ),
-        energy: Math.min(state.energy + (state.time === 2 ? 50 : 20), 100),
-        luck: Math.max(state.luck - (state.time === 2 ? 5 : 1), 0),
-      };
+      console.log("sleep");
+      return sleepHandler(state);
     default:
+      console.log("default");
       return state;
   }
 };
@@ -90,9 +148,15 @@ function Room() {
         overflow: "hidden",
       }}
     >
-      Time: {character.time}&nbsp;&nbsp; Energy: {character.energy}&nbsp;&nbsp;
-      Prof.: {character.professionalism}&nbsp;&nbsp; Motivation:{" "}
-      {character.motivation}&nbsp;&nbsp; Luck: {character.luck}
+      Time:{" "}
+      {character.time === 0
+        ? "morning"
+        : character.time === 1
+        ? "noon"
+        : "night"}
+      &nbsp;&nbsp; Energy: {character.energy}&nbsp;&nbsp; Prof.:{" "}
+      {character.professionalism}&nbsp;&nbsp; Motivation: {character.motivation}
+      &nbsp;&nbsp; Luck: {character.luck}
       <div
         id="walls"
         style={{
@@ -138,4 +202,4 @@ function Room() {
   );
 }
 
-export default Room;
+export default React.memo(Room);
