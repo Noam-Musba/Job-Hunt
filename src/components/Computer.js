@@ -2,17 +2,12 @@ import React, { useState } from "react";
 import MyModal from "./MyModal";
 
 function Computer() {
-  const [showModal, setShowModal] = useState(false);
+  //const [showModal, setShowModal] = useState(false);
 
-  const handleOpenModal = () => {
-    console.log("open");
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    console.log("close");
-    setShowModal(false);
-  };
+  // const handleOpenModal = () => {
+  //   console.log("open");
+  //   setShowModal(true);
+  // };
 
   return (
     <>
@@ -30,7 +25,7 @@ function Computer() {
         }}
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
-        onClick={handleOpenModal}
+       // onClick={handleOpenModal}
       >
         {/* {showModal && <MyModal/> && console.log("woohoo") } */}
 

@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { CharacterContext } from "./Room";
 
 const MyModal = () => {
-  const handleModalClick = (e) => {
-    console.log("propagation");
-    e.stopPropagation(); // Stop click event propagation
+  let activities = ["Study", "Send CV", "Play a game"];
+  const [selectedAct, setSelectedAct] = useState(-1);
+
+  const charContext = useContext(CharacterContext);
+
+  const handleActivityChosen = () => {
+    switch (selectedAct) {
+      case 0:
+        charContext.charDispatch("study");
+      case 1:
+        charContext.charDispatch("send cv");
+      case 2:
+        charContext.charDispatch("game");
+    }
   };
 
   return (
@@ -31,15 +43,31 @@ const MyModal = () => {
             ></button>
           </div>
           <div className="modal-body">
-            
+            <ul className="list-group">
+              {activities.map((activity, index) => (
+                <li
+                  key={index}
+                  className={
+                    selectedAct === index
+                      ? "list-group-item active"
+                      : "list-group-item"
+                  }
+                  aria-current="true"
+                  onClick={() => setSelectedAct(index)}
+                >
+                  {activity}
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="modal-footer">
             <button
               type="button"
               className="btn btn-secondary"
               data-bs-dismiss="modal"
+              onClick={handleActivityChosen}
             >
-              Close
+              Confirm
             </button>
           </div>
         </div>
@@ -48,4 +76,4 @@ const MyModal = () => {
   );
 };
 
-export default MyModal;
+export default React.memo(MyModal);
