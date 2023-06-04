@@ -12,7 +12,7 @@ const initCharacter = {
   motivation: 100,
   professionalism: 0,
   energy: 100,
-  luck: 100,
+  luck: 1,
   interviews: [],
 };
 
@@ -32,6 +32,7 @@ function studyHandler(state) {
       ),
       energy: Math.max(state.energy - 30, 0),
       luck: Math.max(state.luck - (state.time === 2 ? 5 : 0), 0),
+      interviews: state.interviews,
     };
   }
 }
@@ -55,6 +56,7 @@ function sendCVHandler(state) {
       professionalism: Math.max(state.professionalism - 2, 0),
       energy: Math.max(state.energy - 25, 0),
       luck: Math.max(state.luck + (state.time === 2 ? 0 : 5), 0),
+      interviews: state.interviews,
     };
   }
 }
@@ -71,6 +73,7 @@ function gameHandler(state) {
     ),
     energy: Math.min(state.energy + 10, 100),
     luck: Math.max(state.luck - (state.time === 2 ? 5 : 0), 0),
+    interviews: state.interviews,
   };
 }
 
@@ -89,6 +92,7 @@ function exerciseHandler(state) {
       ),
       energy: Math.max(state.energy - 15, 0),
       luck: Math.max(state.luck - (state.time === 2 ? 5 : 0), 0),
+      interviews: state.interviews,
     };
   }
 }
@@ -104,6 +108,7 @@ function sleepHandler(state) {
     ),
     energy: Math.min(state.energy + (state.time === 2 ? 50 : 20), 100),
     luck: Math.max(state.luck - (state.time === 2 ? 5 : 0), 0),
+    interviews: state.interviews,
   };
 }
 
@@ -159,7 +164,7 @@ function Room() {
     } else {
       setJobInterview(false);
     }
-    if(character.interviews[0] === character.day){
+    if(character.interviews.length > 0 && character.interviews[0] === character.day){
       character.interviews.shift();
       setInterviewDay(true);
     }
@@ -205,6 +210,7 @@ function Room() {
           value={{ charState: character, charDispatch: dispatch }}
         >
           {jobInterview && <JobOpportunity />}
+          {interviewDay && console.log("continue from here, line 213")}
           <div
             id="floor"
             style={{
@@ -215,8 +221,8 @@ function Room() {
               boxShadow: "0 0 10px rgba(237, 233, 157, 1)", //yellow
               overflowX: "auto",
             }}
-            data-bs-toggle="modal"
-            data-bs-target="#jobBackdrop"
+            // data-bs-toggle="modal"
+            // data-bs-target="#jobBackdrop"
           >
             <div
               style={{
