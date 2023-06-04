@@ -25,10 +25,9 @@ function Computer() {
         }}
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
-       // onClick={handleOpenModal}
+        title="Study, Send CV or some Gaming"
+        // onClick={handleOpenModal}
       >
-        {/* {showModal && <MyModal/> && console.log("woohoo") } */}
-
         <div
           id="computer"
           style={{

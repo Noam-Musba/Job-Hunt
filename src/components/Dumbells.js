@@ -13,7 +13,7 @@ function Dumbells() {
         position: "relative",
         top: "3vh",
       }}
-      
+      title="Exercise"
     >
       <img
         src={process.env.PUBLIC_URL + "/images/dumbellsRack.png"}

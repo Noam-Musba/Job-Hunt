@@ -23,7 +23,7 @@ function studyHandler(state) {
       time: (state.time + 1) % 3,
       motivation: Math.max(state.motivation - 10, 0),
       professionalism: Math.min(
-        state.professionalism + (state.motivation > 50 ? 10 : 5),
+        state.professionalism + (state.motivation > 50 ? 15 : 5),
         100
       ),
       energy: Math.max(state.energy - 30, 0),
