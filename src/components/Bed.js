@@ -16,7 +16,7 @@ function Bed() {
         textAlign: "center",
         justifyContent: "center", */
       }}
-      onClick={() => charContext.charDispatch("sleep")}
+      onClick={() => charContext.charDispatch({type: "sleep"})}
       title="Sleep"
     >
       <div

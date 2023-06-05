@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CharacterContext } from "./Room";
 
-function JobOpportunity() {
-  let inDays = ((Math.random().toFixed(2) * 100) % 4) + 1;
-  let levelNumber = (Math.random().toFixed(2));
+function JobOpportunity(props) {
+  const charContext = useContext(CharacterContext);
+
+  let days = Math.round(((Math.random().toFixed(2) * 100) % 4) + 1);
+
   let level = "";
-  if(levelNumber <= 0.65) level = "beginner: 16,000 a month";
+  let levelNumber = Math.random().toFixed(2);
+  if (levelNumber <= 0.65) level = "beginner: 16,000 a month";
   else if (levelNumber <= 0.9) level = "intermediate: 19,000 a month";
   else level = "expert: 25,000 a month";
-  const handleConfirmJob = () => {};
-  const handleRejectJob = () => {};
+
+  const handleConfirmJob = () => {
+    //need use context
+    console.log("confirm job");
+    props.jobOpportunity(false);
+    charContext.charDispatch({ type: "add job", day: days, value: level });
+  };
+  const handleRejectJob = () => {
+    console.log("reject job");
+    props.jobOpportunity(false);
+  };
   return (
     <div
       className="modal fade"
@@ -26,22 +39,24 @@ function JobOpportunity() {
             <h1 className="modal-title fs-5" id="staticBackdropLabel">
               You got a job interview! Level: {level}
             </h1>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
           </div>
           <div className="modal-body">
-            You have a job interview level {level}, in {inDays} days!
+            You have a job interview in {days} days!
             <br />
-            Do you want to proceed?
+            Do you want to proceed? <br />
+            {charContext.charState.interviews[
+              days + charContext.charState.day
+            ] &&
+              `Note: You already have a job interview: ${
+                charContext.charState.interviews[
+                  days + charContext.charState.day
+                ]
+              }. Clicking "Yes" will overwrite!`}
           </div>
           <div className="modal-footer">
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-success"
               data-bs-dismiss="modal"
               onClick={handleConfirmJob}
             >
@@ -49,7 +64,7 @@ function JobOpportunity() {
             </button>
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-danger"
               data-bs-dismiss="modal"
               onClick={handleRejectJob}
             >
@@ -62,4 +77,4 @@ function JobOpportunity() {
   );
 }
 
-export default React.memo(JobOpportunity);
+export default JobOpportunity;

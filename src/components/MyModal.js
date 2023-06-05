@@ -8,16 +8,15 @@ const MyModal = () => {
   const charContext = useContext(CharacterContext);
 
   const handleActivityChosen = () => {
-    console.log("handleActivityChosen")
     switch (selectedAct) {
       case 0:
-        charContext.charDispatch("study");
+        charContext.charDispatch({type: "study"});
         return;
       case 1:
-        charContext.charDispatch("send cv");
+        charContext.charDispatch({type: "send cv"});
         return;
       case 2:
-        charContext.charDispatch("game");
+        charContext.charDispatch({type: "game"});
         return;
     }
   };

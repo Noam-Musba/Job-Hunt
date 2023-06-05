@@ -12,8 +12,8 @@ const initCharacter = {
   motivation: 100,
   professionalism: 0,
   energy: 100,
-  luck: 1,
-  interviews: [],
+  luck: 80,
+  interviews: {},
 };
 
 function studyHandler(state) {
@@ -50,7 +50,7 @@ function sendCVHandler(state) {
       day: state.time === 2 ? state.day + 1 : state.day,
       time: (state.time + 1) % 3,
       motivation: Math.max(
-        state.motivation - (state.professionalism > 50 ? 10 : 20),
+        state.motivation - (state.professionalism > 50 ? 15 : 30),
         0
       ),
       professionalism: Math.max(state.professionalism - 2, 0),
@@ -112,41 +112,49 @@ function sleepHandler(state) {
   };
 }
 
-/**when day changes from 3 to 1, should reduce luck, and not only only sleep */
+function addJobHandler(state, days, level){
+  console.log("addjobhandler");
+  const date = days + state.day;
+  state.interviews[date] = level;
+  console.log(state.interviews);
+  return state;
+}
 
 const reducer = (state, action) => {
-  console.log("reducer");
+  //console.log("reducer");
   let ret = "";
-  switch (action) {
+  switch (action.type) {
     case "study":
-      console.log("study");
+      //console.log("study");
       ret = studyHandler(state);
       if (ret === "energy" || ret === "motivation") {
         alert(`Your ${ret} is too low!`);
         return state;
       } else return ret;
     case "send cv":
-      console.log("cv");
+      //console.log("cv");
       ret = sendCVHandler(state);
       if (ret === "energy" || ret === "motivation") {
         alert(`Your ${ret} is too low!`);
         return state;
       } else return ret;
     case "game":
-      console.log("game");
+      //console.log("game");
       return gameHandler(state);
     case "exercise":
-      console.log("exc");
+      //console.log("exc");
       ret = exerciseHandler(state);
       if (ret === "energy") {
         alert(`Your ${ret} is too low!`);
         return state;
       } else return ret;
     case "sleep":
-      console.log("sleep");
+      //console.log("sleep");
       return sleepHandler(state);
+    case "add job":
+      return addJobHandler(state, action.day, action.value);
     default:
-      console.log("default");
+      //console.log("default");
       return state;
   }
 };
@@ -157,21 +165,25 @@ function Room() {
   const [interviewDay, setInterviewDay] = useState(false);
 
   useEffect(() => {
+    // console.log("useeffect")
     let luck = character.luck / 100;
     let randomNumber = Math.random().toFixed(2);
     if (luck >= randomNumber) {
+      // console.log("true");
       setJobInterview(true);
-    } else {
-      setJobInterview(false);
-    }
-    if(character.interviews.length > 0 && character.interviews[0] === character.day){
-      character.interviews.shift();
+    } 
+    // else console.log("false")
+    if(character.interviews[character.day] != undefined){
       setInterviewDay(true);
     }
     else{
       setInterviewDay(false);
     }
-  }, [character]);
+    return () => {
+      // console.log("cleanup");
+      setJobInterview(false);
+    }
+  }, [character.day]);
 
   return (
     <div
@@ -209,8 +221,8 @@ function Room() {
         <CharacterContext.Provider
           value={{ charState: character, charDispatch: dispatch }}
         >
-          {jobInterview && <JobOpportunity />}
-          {interviewDay && console.log("continue from here, line 213")}
+          {jobInterview && <JobOpportunity jobOpportunity={setJobInterview}/>}
+          {/* {interviewDay && console.log("continue from here, line 213")} */}
           <div
             id="floor"
             style={{
@@ -221,8 +233,8 @@ function Room() {
               boxShadow: "0 0 10px rgba(237, 233, 157, 1)", //yellow
               overflowX: "auto",
             }}
-            // data-bs-toggle="modal"
-            // data-bs-target="#jobBackdrop"
+            data-bs-toggle={jobInterview ? "modal" : ""}
+            data-bs-target="#jobBackdrop"
           >
             <div
               style={{

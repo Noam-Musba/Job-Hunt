@@ -25,7 +25,7 @@ function Dumbells() {
           right: "0",
           cursor: "pointer",
         }}
-        onClick={() => charContext.charDispatch("exercise")}
+        onClick={() => charContext.charDispatch({type: "exercise"})}
       />
     </div>
   );
