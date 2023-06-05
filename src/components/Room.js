@@ -3,6 +3,7 @@ import Bed from "./Bed";
 import Computer from "./Computer";
 import Dumbells from "./Dumbells";
 import JobOpportunity from "./JobOpportunity";
+import Interview from "./Interview";
 
 export const CharacterContext = React.createContext();
 
@@ -10,7 +11,7 @@ const initCharacter = {
   day: 1,
   time: 0,
   motivation: 100,
-  professionalism: 0,
+  professionalism: 100,
   energy: 100,
   luck: 80,
   interviews: {},
@@ -112,12 +113,42 @@ function sleepHandler(state) {
   };
 }
 
-function addJobHandler(state, days, level){
+function addJobHandler(state, days, level) {
   console.log("addjobhandler");
   const date = days + state.day;
   state.interviews[date] = level;
   console.log(state.interviews);
   return state;
+}
+
+function failedJobHandler(state, level) {
+  console.log("failedJobHandler");
+  console.log(`the level is ${level}`);
+  let prof, mot, energy, tmpInter;
+  switch (level) {
+    case "beginner":
+      prof = 10;
+      break;
+    case "intermediate":
+      prof = 7;
+      break;
+    case "expert":
+      prof = 5;
+      break;
+  }
+  mot = 30;
+  energy = 30;
+  tmpInter = state.interviews;
+  delete tmpInter[state.day];
+  return {
+    day: state.day,
+    time: state.time,
+    motivation: Math.max(state.motivation - mot, 0),
+    professionalism: Math.min(state.professionalism + prof, 100),
+    energy: Math.max(state.energy - energy, 0),
+    luck: state.luck,
+    interviews: tmpInter,
+  };
 }
 
 const reducer = (state, action) => {
@@ -153,6 +184,9 @@ const reducer = (state, action) => {
       return sleepHandler(state);
     case "add job":
       return addJobHandler(state, action.day, action.value);
+    case "failed job":
+      console.log("reducer in failed job");
+      return failedJobHandler(state, action.value);
     default:
       //console.log("default");
       return state;
@@ -171,18 +205,18 @@ function Room() {
     if (luck >= randomNumber) {
       // console.log("true");
       setJobInterview(true);
-    } 
-    // else console.log("false")
-    if(character.interviews[character.day] != undefined){
-      setInterviewDay(true);
     }
-    else{
+    // else console.log("false")
+    if (character.interviews[character.day] != undefined) {
+      setInterviewDay(true);
+    } else {
       setInterviewDay(false);
     }
     return () => {
       // console.log("cleanup");
       setJobInterview(false);
-    }
+      setInterviewDay(false);
+    };
   }, [character.day]);
 
   return (
@@ -204,25 +238,28 @@ function Room() {
       &nbsp;&nbsp; Energy: {character.energy}&nbsp;&nbsp; Prof.:{" "}
       {character.professionalism}&nbsp;&nbsp; Motivation: {character.motivation}
       &nbsp;&nbsp; Luck: {character.luck}
-      <div
-        id="walls"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          border: "2px solid black",
-          backgroundColor: "lightgrey",
-          height: "90vh",
-          width: "70vw",
-          position: "absolute",
-          top: "7%",
-        }}
+      <CharacterContext.Provider
+        value={{ charState: character, charDispatch: dispatch }}
       >
-        <CharacterContext.Provider
-          value={{ charState: character, charDispatch: dispatch }}
+        {interviewDay && <Interview interviewDay={setInterviewDay} />}
+        <div
+          id="walls"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            border: "2px solid black",
+            backgroundColor: "lightgrey",
+            height: "90vh",
+            width: "70vw",
+            position: "absolute",
+            top: "7%",
+          }}
+          data-bs-toggle={interviewDay ? "modal" : ""}
+          data-bs-target="#interviewBackdrop"
         >
-          {jobInterview && <JobOpportunity jobOpportunity={setJobInterview}/>}
-          {/* {interviewDay && console.log("continue from here, line 213")} */}
+          {jobInterview && <JobOpportunity jobOpportunity={setJobInterview} />}
+
           <div
             id="floor"
             style={{
@@ -247,8 +284,8 @@ function Room() {
             </div>
             <Dumbells />
           </div>
-        </CharacterContext.Provider>
-      </div>
+        </div>
+      </CharacterContext.Provider>
     </div>
   );
 }

@@ -13,7 +13,6 @@ function JobOpportunity(props) {
   else level = "expert: 25,000 a month";
 
   const handleConfirmJob = () => {
-    //need use context
     console.log("confirm job");
     props.jobOpportunity(false);
     charContext.charDispatch({ type: "add job", day: days, value: level });
