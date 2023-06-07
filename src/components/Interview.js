@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { CharacterContext } from "./Room";
 
-function beginner(proff, mot, energy) {}
 
 function generateInterviewResults(level, proff, mot, energy) {
   /** the formula:

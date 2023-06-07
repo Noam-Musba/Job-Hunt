@@ -4,6 +4,7 @@ import Computer from "./Computer";
 import Dumbells from "./Dumbells";
 import JobOpportunity from "./JobOpportunity";
 import Interview from "./Interview";
+import ShowInterviews from "./ShowInterviews";
 
 export const CharacterContext = React.createContext();
 
@@ -11,9 +12,9 @@ const initCharacter = {
   day: 1,
   time: 0,
   motivation: 100,
-  professionalism: 100,
+  professionalism: 5,
   energy: 100,
-  luck: 80,
+  luck: 100,
   interviews: {},
 };
 
@@ -65,7 +66,6 @@ function sendCVHandler(state) {
 function gameHandler(state) {
   return {
     day: state.time === 2 ? state.day + 1 : state.day,
-    day: state.day,
     time: (state.time + 1) % 3,
     motivation: Math.min(state.motivation + 10, 100),
     professionalism: Math.max(
@@ -84,7 +84,6 @@ function exerciseHandler(state) {
   } else {
     return {
       day: state.time === 2 ? state.day + 1 : state.day,
-      day: state.day,
       time: (state.time + 1) % 3,
       motivation: Math.min(state.motivation + 20, 100),
       professionalism: Math.max(
@@ -134,6 +133,9 @@ function failedJobHandler(state, level) {
       break;
     case "expert":
       prof = 5;
+      break;
+    default:
+      console.error("failedJobHandler bug, should get to default in switch case");
       break;
   }
   mot = 30;
@@ -207,7 +209,7 @@ function Room() {
       setJobInterview(true);
     }
     // else console.log("false")
-    if (character.interviews[character.day] != undefined) {
+    if (character.interviews[character.day] !== undefined) {
       setInterviewDay(true);
     } else {
       setInterviewDay(false);
@@ -217,7 +219,7 @@ function Room() {
       setJobInterview(false);
       setInterviewDay(false);
     };
-  }, [character.day]);
+  }, [character.day, character.interviews, character.luck]);
 
   return (
     <div
@@ -226,9 +228,10 @@ function Room() {
         display: "flex",
         width: "100%",
         justifyContent: "center",
-        overflow: "hidden",
+        overflow: "",
       }}
     >
+      <ShowInterviews interviews={character.interviews} />
       Day:{character.day}&nbsp;&nbsp; Time:{" "}
       {character.time === 0
         ? "morning"
@@ -241,6 +244,7 @@ function Room() {
       <CharacterContext.Provider
         value={{ charState: character, charDispatch: dispatch }}
       >
+        
         {interviewDay && <Interview interviewDay={setInterviewDay} />}
         <div
           id="walls"
