@@ -14,7 +14,7 @@ const initCharacter = {
   motivation: 100,
   professionalism: 5,
   energy: 100,
-  luck: 100,
+  luck: 0,
   interviews: {},
 };
 
@@ -135,7 +135,9 @@ function failedJobHandler(state, level) {
       prof = 5;
       break;
     default:
-      console.error("failedJobHandler bug, should get to default in switch case");
+      console.error(
+        "failedJobHandler bug, should get to default in switch case"
+      );
       break;
   }
   mot = 30;
@@ -200,6 +202,23 @@ function Room() {
   const [jobInterview, setJobInterview] = useState(false);
   const [interviewDay, setInterviewDay] = useState(false);
 
+  let roomColor1, roomColor2;
+  switch (character.time) {
+    case 0:
+      roomColor1 = "lightskyblue";
+      roomColor2 = "#8486f5"; //"#5f29f6";
+      break;
+    case 1:
+      roomColor1 = "yellow";
+      roomColor2 = "lightyellow";
+      break;
+    case 2:
+      roomColor1 = "lightgray";
+      roomColor2 = "gray";
+    default:
+      break;
+  }
+
   useEffect(() => {
     // console.log("useeffect")
     let luck = character.luck / 100;
@@ -232,19 +251,25 @@ function Room() {
       }}
     >
       <ShowInterviews interviews={character.interviews} />
-      Day:{character.day}&nbsp;&nbsp; Time:{" "}
-      {character.time === 0
-        ? "morning"
-        : character.time === 1
-        ? "noon"
-        : "night"}
-      &nbsp;&nbsp; Energy: {character.energy}&nbsp;&nbsp; Prof.:{" "}
-      {character.professionalism}&nbsp;&nbsp; Motivation: {character.motivation}
-      &nbsp;&nbsp; Luck: {character.luck}
+      <span style={{
+        position: "fixed",
+        marginTop: "7px"
+
+      }}>
+        Day:{character.day}&nbsp;&nbsp; Time:{" "}
+        {character.time === 0
+          ? "morning"
+          : character.time === 1
+          ? "noon"
+          : "night"}
+        &nbsp;&nbsp; Energy: {character.energy}&nbsp;&nbsp; Prof.:{" "}
+        {character.professionalism}&nbsp;&nbsp; Motivation:{" "}
+        {character.motivation}
+        &nbsp;&nbsp; Luck: {character.luck}
+      </span>
       <CharacterContext.Provider
         value={{ charState: character, charDispatch: dispatch }}
       >
-        
         {interviewDay && <Interview interviewDay={setInterviewDay} />}
         <div
           id="walls"
@@ -267,7 +292,7 @@ function Room() {
           <div
             id="floor"
             style={{
-              backgroundColor: "white",
+              background: `radial-gradient(${roomColor1}, ${roomColor2})`,
               height: "90%",
               width: "90%",
               border: "1px solid black",

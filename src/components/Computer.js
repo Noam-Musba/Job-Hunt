@@ -15,13 +15,14 @@ function Computer() {
       <div
         id="desk"
         style={{
-          border: "1px solid black",
+          //border: "1px solid black",
           height: "15vh",
           width: "25vw",
           margin: "5px",
           position: "relative",
           left: "27%",
           cursor: "pointer",
+          backgroundColor: "#e58b40"//e58b40
         }}
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
@@ -35,15 +36,17 @@ function Computer() {
             height: "30%",
             width: "70%",
             margin: "5px",
+            backgroundColor: "black",
+            borderRadius: "20%"
           }}
         >
           <div
             id="monitor"
             style={{
-              height: "30%",
+              height: "20%",
               width: "100%",
-              marginTop: "23px",
-              backgroundColor: "black", // will change color if working or not
+              marginTop: "27px",
+              backgroundColor: "#4da1ef", // will change color if working or not
             }}
           ></div>
         </div>
@@ -55,6 +58,7 @@ function Computer() {
             width: "70%",
             margin: "5px",
             borderRadius: "10px",
+            background: "repeating-linear-gradient(white, black 5px)"
           }}
         />
         <div
@@ -66,6 +70,7 @@ function Computer() {
             height: "15px",
             position: "relative",
             left: "19vw",
+            background: "conic-gradient(white, black)"
           }}
         />
       </div>

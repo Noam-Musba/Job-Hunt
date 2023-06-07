@@ -11,7 +11,7 @@ function ShowInterviews(props) {
       style={{
         position: "relative",
         bottom: "-20vh",
-        left: "-26vw",
+        left: "-42vw",
       }}
     >
       <button
