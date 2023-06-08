@@ -67,7 +67,7 @@ const MyModal = () => {
           <div className="modal-footer">
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-success"
               data-bs-dismiss="modal"
               onClick={handleActivityChosen}
             >

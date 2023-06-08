@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
 import { CharacterContext } from "./Room";
+import ConfirmAct from "./ConfirmAct";
 
 function Bed() {
   const charContext = useContext(CharacterContext);
   return (
+    <>
+    <ConfirmAct type={"bed"}>sleep</ConfirmAct>
     <div
       id="bed"
       style={{
@@ -17,7 +20,10 @@ function Bed() {
         textAlign: "center",
         justifyContent: "center", */
       }}
-      onClick={() => charContext.charDispatch({ type: "sleep" })}
+      data-bs-toggle="modal"
+      data-bs-target="#confirmsleepBackdrop"
+      data-bs-whatever="@bed"
+      //onClick={() => charContext.charDispatch({ type: "sleep" })}
       title="Sleep"
     >
       <div
@@ -47,7 +53,8 @@ function Bed() {
         }}
       ></div>
     </div>
+    </>
   );
 }
 
-export default React.memo(Bed);
+export default Bed;

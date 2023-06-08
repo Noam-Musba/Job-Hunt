@@ -1,34 +1,41 @@
 import React, { useContext } from "react";
 import { CharacterContext } from "./Room";
+import ConfirmAct from "./ConfirmAct";
 
 function Dumbells() {
-  const charContext = useContext(CharacterContext);
+  //const charContext = useContext(CharacterContext);
   return (
-    <div
-      id="dumbellsRack"
-      style={{
-        height: "15vh",
-        width: "98%",
-        margin: "5px",
-        position: "relative",
-        top: "3vh",
-      }}
-      title="Exercise"
-    >
-      <img
-        src={process.env.PUBLIC_URL + "/images/dumbellsRack.png"}
-        alt="dumbells rack"
+    <>
+      <ConfirmAct type={"dumb"}>exercise</ConfirmAct>
+      <div
+        id="dumbellsRack"
         style={{
-          maxHeight: "100%",
-          maxWidth: "100%",
-          position: "absolute",
-          right: "0",
-          cursor: "pointer",
+          height: "15vh",
+          width: "98%",
+          margin: "5px",
+          position: "relative",
+          top: "3vh",
         }}
-        onClick={() => charContext.charDispatch({type: "exercise"})}
-      />
-    </div>
+        title="Exercise"
+      >
+        <img
+          src={process.env.PUBLIC_URL + "/images/dumbellsRack.png"}
+          alt="dumbells rack"
+          style={{
+            maxHeight: "100%",
+            maxWidth: "100%",
+            position: "absolute",
+            right: "0",
+            cursor: "pointer",
+          }}
+          data-bs-toggle="modal"
+          data-bs-target="#confirmExerciseBackdrop"
+          data-bs-whatever="@dumbells"
+          //onClick={() => charContext.charDispatch({type: "exercise"})}
+        />
+      </div>
+    </>
   );
 }
 
-export default React.memo(Dumbells);
+export default Dumbells;
