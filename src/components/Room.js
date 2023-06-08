@@ -209,8 +209,8 @@ function Room() {
       roomColor2 = "#8486f5"; //"#5f29f6";
       break;
     case 1:
-      roomColor1 = "yellow";
-      roomColor2 = "lightyellow";
+      roomColor1 = "lightyellow";
+      roomColor2 = "yellow";
       break;
     case 2:
       roomColor1 = "lightgray";
@@ -293,11 +293,13 @@ function Room() {
             id="floor"
             style={{
               background: `radial-gradient(${roomColor1}, ${roomColor2})`,
+              //backgroundColor: `${roomColor1}`,
               height: "90%",
               width: "90%",
               border: "1px solid black",
               boxShadow: "0 0 10px rgba(237, 233, 157, 1)", //yellow
               overflowX: "auto",
+              //transition: "background-color 4s ease"
             }}
             data-bs-toggle={jobInterview ? "modal" : ""}
             data-bs-target="#jobBackdrop"

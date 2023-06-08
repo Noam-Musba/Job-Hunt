@@ -46,7 +46,7 @@ function Computer() {
               height: "20%",
               width: "100%",
               marginTop: "27px",
-              backgroundColor: "#4da1ef", // will change color if working or not
+              backgroundColor: "blue", // will change color if working or not
             }}
           ></div>
         </div>
