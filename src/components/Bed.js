@@ -16,6 +16,7 @@ function Bed() {
         margin: "5px",
         cursor: "pointer",
         background: "radial-gradient(blue, navy)",
+        boxShadow: "0 0 25px darkslategrey"
         /* display: "flex",
         textAlign: "center",
         justifyContent: "center", */

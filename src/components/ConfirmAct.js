@@ -36,18 +36,18 @@ function ConfirmAct(props) {
           <div className="modal-footer">
             <button
               type="button"
+              className="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
               className="btn btn-success"
               data-bs-dismiss="modal"
               onClick={() => charContext.charDispatch({ type: props.children })}
             >
               Confirm
-            </button>
-            <button
-              type="button"
-              className="btn btn-danger"
-              data-bs-dismiss="modal"
-            >
-              Cancel
             </button>
           </div>
         </div>

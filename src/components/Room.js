@@ -6,6 +6,7 @@ import JobOpportunity from "./JobOpportunity";
 import Interview from "./Interview";
 import ShowInterviews from "./ShowInterviews";
 import Tutorial from "./Tutorial";
+import Exercise from "./Exercise";
 
 export const CharacterContext = React.createContext();
 
@@ -265,6 +266,7 @@ function Room() {
       >
         Tutorial
       </button>
+      <Tutorial />
       <ShowInterviews interviews={character.interviews} />
       <span
         style={{
@@ -313,7 +315,7 @@ function Room() {
               height: "90%",
               width: "90%",
               border: "1px solid black",
-              boxShadow: "0 0 10px rgba(237, 233, 157, 1)", //yellow
+              boxShadow: `0 0 30px 10px ${roomColor2}`, //yellow
               overflowX: "auto",
               //transition: "background-color 4s ease"
             }}
@@ -328,10 +330,15 @@ function Room() {
             >
               <Bed />
               <Computer />
-
-              <Tutorial />
+              
             </div>
-            <Dumbells />
+            <div style={{
+                display: "flex",
+                //overflow: "hidden"
+              }}>
+            <Exercise />
+            {/* <Dumbells /> */}
+            </div>
           </div>
         </div>
       </CharacterContext.Provider>

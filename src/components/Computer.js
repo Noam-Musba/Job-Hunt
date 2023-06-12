@@ -22,7 +22,8 @@ function Computer() {
           position: "relative",
           left: "27%",
           cursor: "pointer",
-          backgroundColor: "#e58b40"//e58b40
+          backgroundColor: "#e58b40", //e58b40
+          boxShadow: "0 0 20px darkslategrey"
         }}
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
@@ -37,7 +38,8 @@ function Computer() {
             width: "70%",
             margin: "5px",
             backgroundColor: "black",
-            borderRadius: "20%"
+            borderRadius: "20%",
+            boxShadow: "3px -2px 10px darkslategrey"
           }}
         >
           <div
@@ -58,7 +60,7 @@ function Computer() {
             width: "70%",
             margin: "5px",
             borderRadius: "10px",
-            background: "repeating-linear-gradient(white, black 5px)"
+            background: "repeating-linear-gradient(white, black 5px)",
           }}
         />
         <div
@@ -70,7 +72,7 @@ function Computer() {
             height: "15px",
             position: "relative",
             left: "19vw",
-            background: "conic-gradient(white, black)"
+            background: "conic-gradient(white, black)",
           }}
         />
       </div>
