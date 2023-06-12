@@ -251,6 +251,20 @@ function Room() {
         overflow: "",
       }}
     >
+      <button
+        type="button"
+        class="btn btn-info"
+        data-bs-toggle="modal"
+        data-bs-target="#turorialBackdrop"
+        style={{
+          maxHeight: "5vh",
+          position: "fixed",
+          bottom: "75vh",
+          left: "90vw",
+        }}
+      >
+        Tutorial
+      </button>
       <ShowInterviews interviews={character.interviews} />
       <span
         style={{
@@ -314,20 +328,7 @@ function Room() {
             >
               <Bed />
               <Computer />
-              <button
-                type="button"
-                class="btn btn-info"
-                data-bs-toggle="modal"
-                data-bs-target="#turorialBackdrop"
-                style={{
-                  maxHeight: "5vh",
-                  position: "relative",
-                  top: "230px",
-                  left: "170px",
-                }}
-              >
-                Tutorial
-              </button>
+
               <Tutorial />
             </div>
             <Dumbells />
