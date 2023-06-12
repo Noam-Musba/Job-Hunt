@@ -5,6 +5,7 @@ import Dumbells from "./Dumbells";
 import JobOpportunity from "./JobOpportunity";
 import Interview from "./Interview";
 import ShowInterviews from "./ShowInterviews";
+import Tutorial from "./Tutorial";
 
 export const CharacterContext = React.createContext();
 
@@ -251,11 +252,12 @@ function Room() {
       }}
     >
       <ShowInterviews interviews={character.interviews} />
-      <span style={{
-        position: "fixed",
-        marginTop: "7px"
-
-      }}>
+      <span
+        style={{
+          position: "fixed",
+          marginTop: "7px",
+        }}
+      >
         Day:{character.day}&nbsp;&nbsp; Time:{" "}
         {character.time === 0
           ? "morning"
@@ -312,6 +314,21 @@ function Room() {
             >
               <Bed />
               <Computer />
+              <button
+                type="button"
+                class="btn btn-info"
+                data-bs-toggle="modal"
+                data-bs-target="#turorialBackdrop"
+                style={{
+                  maxHeight: "5vh",
+                  position: "relative",
+                  top: "230px",
+                  left: "170px",
+                }}
+              >
+                Tutorial
+              </button>
+              <Tutorial />
             </div>
             <Dumbells />
           </div>
