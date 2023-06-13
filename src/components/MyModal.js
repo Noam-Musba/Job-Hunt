@@ -18,6 +18,9 @@ const MyModal = () => {
       case 2:
         charContext.charDispatch({type: "game"});
         return;
+      default:
+        console.log("Could not choose the right act. MyModal.js");
+        return;
     }
   };
 

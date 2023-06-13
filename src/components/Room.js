@@ -1,7 +1,6 @@
 import React, { useEffect, useReducer, useState } from "react";
 import Bed from "./Bed";
 import Computer from "./Computer";
-import Dumbells from "./Dumbells";
 import JobOpportunity from "./JobOpportunity";
 import Interview from "./Interview";
 import ShowInterviews from "./ShowInterviews";
@@ -217,6 +216,7 @@ function Room() {
     case 2:
       roomColor1 = "lightgray";
       roomColor2 = "gray";
+      break;
     default:
       break;
   }

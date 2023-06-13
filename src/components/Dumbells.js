@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { CharacterContext } from "./Room";
+import React from "react";
 import ConfirmAct from "./ConfirmAct";
 
 function Dumbells() {
