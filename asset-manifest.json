@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Job-Hunt/static/css/main.da4f6b06.css",
+    "main.js": "/Job-Hunt/static/js/main.e2ea9662.js",
+    "static/js/787.aa0caf66.chunk.js": "/Job-Hunt/static/js/787.aa0caf66.chunk.js",
+    "index.html": "/Job-Hunt/index.html",
+    "main.da4f6b06.css.map": "/Job-Hunt/static/css/main.da4f6b06.css.map",
+    "main.e2ea9662.js.map": "/Job-Hunt/static/js/main.e2ea9662.js.map",
+    "787.aa0caf66.chunk.js.map": "/Job-Hunt/static/js/787.aa0caf66.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.da4f6b06.css",
+    "static/js/main.e2ea9662.js"
+  ]
+}
