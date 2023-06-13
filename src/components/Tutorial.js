@@ -34,7 +34,7 @@ function Tutorial() {
                 <br /> and now looking for his very first job!
                 <br /> <br />
                 Unfortunately, you find it very hard and frustrating,
-                <br /> but you are on about to quit right now!
+                <br /> but you are not going to quit right now!
                 <br />
                 <br />
                 The purpose of the game is to find the best job
@@ -95,7 +95,7 @@ function Tutorial() {
               <br />
               <b>Prof.:</b> Proffessionalism, needed to pass interviews. <br />
               <br />
-              <b>Motivation:</b> Similar to energy, but affected differently.
+              <b>Motivation:</b> Needed for some actions and to pass interviews.
               <br />
               <br />
               <b>Luck:</b> Needed to have a chance of getting an interview.
@@ -145,13 +145,19 @@ function Tutorial() {
               ></button>
             </div>
             <div className="modal-body">
+              Some actions are dependent on the time of the day,
+              <br />
+              or on the level of your characteristics.
+              <br />
+              A simple example is that you sleep better at night ;)
+              <br /> <br />
               To <b>pass the interview</b>, you will need high{" "}
               <b>Prof., Motivation and Energy</b>, depending on the <b>level</b>{" "}
               of the interview.
               <br />
               <br />
               So study and send CV but don't forget to sleep, exercise and play
-              some games <br />
+              some games, <br />
               cause you don't want to drain your energy or be unmotivated! ;)
               <br />
               <br />
