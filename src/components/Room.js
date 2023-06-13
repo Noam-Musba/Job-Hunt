@@ -254,7 +254,7 @@ function Room() {
     >
       <button
         type="button"
-        class="btn btn-info"
+        className="btn btn-info"
         data-bs-toggle="modal"
         data-bs-target="#turorialBackdrop"
         style={{
