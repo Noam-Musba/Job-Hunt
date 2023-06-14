@@ -4,7 +4,7 @@ import { CharacterContext } from "./Room";
 function JobOpportunity(props) {
   const charContext = useContext(CharacterContext);
 
-  let days = Math.round(((Math.random().toFixed(2) * 100) % 4) + 1);
+  let days = Math.round(((Math.random().toFixed(2) * 100) % 4) + 3);
 
   let level = "";
   let levelNumber = Math.random().toFixed(2);

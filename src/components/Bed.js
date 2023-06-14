@@ -20,7 +20,7 @@ function Bed() {
         justifyContent: "center", */
       }}
       data-bs-toggle="modal"
-      data-bs-target="#confirmsleepBackdrop"
+      data-bs-target="#confirmSleepBackdrop"
       data-bs-whatever="@bed"
       //onClick={() => charContext.charDispatch({ type: "sleep" })}
       title="Sleep"

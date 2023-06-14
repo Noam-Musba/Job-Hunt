@@ -7,6 +7,9 @@ import ShowInterviews from "./ShowInterviews";
 import Tutorial from "./Tutorial";
 import Exercise from "./Exercise";
 
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export const CharacterContext = React.createContext();
 
 const initCharacter = {
@@ -20,48 +23,48 @@ const initCharacter = {
 };
 
 function studyHandler(state) {
-  if (state.energy < 30) {
-    return "energy";
-  } else if (state.motivation < 10) {
-    return "motivation";
-  } else {
-    return {
-      day: state.time === 2 ? state.day + 1 : state.day,
-      time: (state.time + 1) % 3,
-      motivation: Math.max(state.motivation - 10, 0),
-      professionalism: Math.min(
-        state.professionalism + (state.motivation > 50 ? 15 : 5),
-        100
-      ),
-      energy: Math.max(state.energy - 30, 0),
-      luck: Math.max(state.luck - (state.time === 2 ? 5 : 0), 0),
-      interviews: state.interviews,
-    };
-  }
+  // if (state.energy < 30) {
+  //   return "energy";
+  // } else if (state.motivation < 10) {
+  //   return "motivation";
+  // } else {
+  return {
+    day: state.time === 2 ? state.day + 1 : state.day,
+    time: (state.time + 1) % 3,
+    motivation: Math.max(state.motivation - 10, 0),
+    professionalism: Math.min(
+      state.professionalism + (state.motivation > 50 ? 15 : 5),
+      100
+    ),
+    energy: Math.max(state.energy - 30, 0),
+    luck: Math.max(state.luck - (state.time === 2 ? 5 : 0), 0),
+    interviews: state.interviews,
+  };
+  // }
 }
 
 function sendCVHandler(state) {
-  if (state.energy < 25) {
-    return "energy";
-  } else if (
-    (state.professionalism > 50 && state.motivation < 20) ||
-    (state.professionalism <= 50 && state.motivation < 30)
-  ) {
-    return "motivation";
-  } else {
-    return {
-      day: state.time === 2 ? state.day + 1 : state.day,
-      time: (state.time + 1) % 3,
-      motivation: Math.max(
-        state.motivation - (state.professionalism > 50 ? 15 : 30),
-        0
-      ),
-      professionalism: Math.max(state.professionalism - 2, 0),
-      energy: Math.max(state.energy - 25, 0),
-      luck: Math.max(state.luck + (state.time === 2 ? 0 : 5), 0),
-      interviews: state.interviews,
-    };
-  }
+  // if (state.energy < 25) {
+  //   return "energy";
+  // } else if (
+  //   (state.professionalism > 50 && state.motivation < 20) ||
+  //   (state.professionalism <= 50 && state.motivation < 30)
+  // ) {
+  //   return "motivation";
+  // } else {
+  return {
+    day: state.time === 2 ? state.day + 1 : state.day,
+    time: (state.time + 1) % 3,
+    motivation: Math.max(
+      state.motivation - (state.professionalism > 50 ? 15 : 30),
+      0
+    ),
+    professionalism: Math.max(state.professionalism - 2, 0),
+    energy: Math.max(state.energy - 25, 0),
+    luck: Math.max(state.luck + (state.time === 2 ? 0 : 5), 0),
+    interviews: state.interviews,
+  };
+  // }
 }
 
 function gameHandler(state) {
@@ -80,22 +83,18 @@ function gameHandler(state) {
 }
 
 function exerciseHandler(state) {
-  if (state.energy < 15) {
-    return "energy";
-  } else {
-    return {
-      day: state.time === 2 ? state.day + 1 : state.day,
-      time: (state.time + 1) % 3,
-      motivation: Math.min(state.motivation + 20, 100),
-      professionalism: Math.max(
-        state.professionalism - (state.professionalism > 50 ? 5 : 15),
-        0
-      ),
-      energy: Math.max(state.energy - 15, 0),
-      luck: Math.max(state.luck - (state.time === 2 ? 5 : 0), 0),
-      interviews: state.interviews,
-    };
-  }
+  return {
+    day: state.time === 2 ? state.day + 1 : state.day,
+    time: (state.time + 1) % 3,
+    motivation: Math.min(state.motivation + 20, 100),
+    professionalism: Math.max(
+      state.professionalism - (state.professionalism > 50 ? 5 : 15),
+      0
+    ),
+    energy: Math.max(state.energy - 15, 0),
+    luck: Math.max(state.luck - (state.time === 2 ? 5 : 0), 0),
+    interviews: state.interviews,
+  };
 }
 
 function sleepHandler(state) {
@@ -158,39 +157,28 @@ function failedJobHandler(state, level) {
 
 const reducer = (state, action) => {
   //console.log("reducer");
-  let ret = "";
   switch (action.type) {
     case "study":
       //console.log("study");
-      ret = studyHandler(state);
-      if (ret === "energy" || ret === "motivation") {
-        alert(`Your ${ret} is too low!`);
-        return state;
-      } else return ret;
+      if (action.value === "Can't perform this action") return state;
+      else return studyHandler(state);
     case "send cv":
-      //console.log("cv");
-      ret = sendCVHandler(state);
-      if (ret === "energy" || ret === "motivation") {
-        alert(`Your ${ret} is too low!`);
-        return state;
-      } else return ret;
+      if (action.value === "Can't perform this action") return state;
+      else return sendCVHandler(state);
     case "game":
       //console.log("game");
       return gameHandler(state);
     case "exercise":
       //console.log("exc");
-      ret = exerciseHandler(state);
-      if (ret === "energy") {
-        alert(`Your ${ret} is too low!`);
-        return state;
-      } else return ret;
+      if (action.value === "Can't perform this action") return state;
+      else return exerciseHandler(state);
     case "sleep":
       //console.log("sleep");
       return sleepHandler(state);
     case "add job":
       return addJobHandler(state, action.day, action.value);
     case "failed job":
-      console.log("reducer in failed job");
+      //console.log("reducer in failed job");
       return failedJobHandler(state, action.value);
     default:
       //console.log("default");
@@ -267,6 +255,7 @@ function Room() {
         Tutorial
       </button>
       <Tutorial />
+      <ToastContainer />
       <ShowInterviews interviews={character.interviews} />
       <span
         style={{
@@ -330,14 +319,15 @@ function Room() {
             >
               <Bed />
               <Computer />
-              
             </div>
-            <div style={{
+            <div
+              style={{
                 display: "flex",
                 //overflow: "hidden"
-              }}>
-            <Exercise />
-            {/* <Dumbells /> */}
+              }}
+            >
+              <Exercise />
+              {/* <Dumbells /> */}
             </div>
           </div>
         </div>
