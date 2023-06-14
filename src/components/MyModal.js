@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { CharacterContext } from "./Room";
 
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const MyModal = () => {

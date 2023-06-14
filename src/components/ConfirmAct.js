@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { CharacterContext } from "./Room";
 
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function ConfirmAct(props) {

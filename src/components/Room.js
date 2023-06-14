@@ -7,7 +7,7 @@ import ShowInterviews from "./ShowInterviews";
 import Tutorial from "./Tutorial";
 import Exercise from "./Exercise";
 
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const CharacterContext = React.createContext();
